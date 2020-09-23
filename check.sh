@@ -12,6 +12,7 @@ while read line; do
     fi
 done < "./searchplugins.csv";
 
+#md5sum -b *.ico > "./MD5SUMS";
 md5sum --check "./MD5SUMS";
 
 exit $?;
