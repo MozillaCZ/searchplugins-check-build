@@ -22,9 +22,9 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
       - name: Run check
-        run: docker run --user $(id -u):$(id -g) \
-          --workdir ${{ github.workspace }} \
-          -v ${{ github.workspace }}:${{ github.workspace }} \
+        run: docker run \
+          --workdir ${GITHUB_WORKSPACE} \
+          -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} \
           --rm=true \
           --entrypoint=/bin/sh \
           curlimages/curl:latest -c sh ./check.sh ${{ matrix.dir }}
