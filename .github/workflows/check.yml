@@ -23,8 +23,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Run check
         run: docker run \
-          --workdir ${GITHUB_WORKSPACE} \
-          -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} \
+          --workdir ${{ github.workspace }} \
+          -v ${{ github.workspace }}:${{ github.workspace }} \
           --rm=true \
           --entrypoint=/bin/sh \
           curlimages/curl:latest -c sh ./check.sh ${{ matrix.dir }}
