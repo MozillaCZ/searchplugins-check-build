@@ -1,0 +1,30 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: '0 0 * * 2' # https://crontab.guru/#0_0_*_*_2
+  workflow_dispatch: # allows to be run manually
+
+jobs:
+  check:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        dir:
+          - browser
+          - mail
+          - mobile
+          - suite
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Run check
+        run: docker run --user $(id -u):$(id -g) \
+          --workdir $(PWD) \
+          -v $(PWD):$(PWD) \
+          --rm=true \
+          --entrypoint=/bin/sh \
+          curlimages/curl:latest -c sh ./check.sh ${{ matrix.dir }}
