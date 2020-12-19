@@ -23,8 +23,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Run check
         run: docker run --user $(id -u):$(id -g) \
-          --workdir $(PWD) \
-          -v $(PWD):$(PWD) \
+          --workdir ${PWD} \
+          -v ${PWD}:${PWD} \
           --rm=true \
           --entrypoint=/bin/sh \
           curlimages/curl:latest -c sh ./check.sh ${{ matrix.dir }}
